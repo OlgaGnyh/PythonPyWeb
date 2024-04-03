@@ -1,5 +1,6 @@
 import django
 import os
+from django.db.models import Count
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
@@ -81,5 +82,62 @@ if __name__ == "__main__":
     # # Вывести всех авторов которые не указали город
     # print(AuthorProfile.objects.filter(city__isnull=True))
 
-    # Вывести записи где в тексте статьи встречается патерн \w*стран\w*
-    print(Entry.objects.filter(body_text__regex=r'\w*стран\w*'))
+    # # Вывести записи где в тексте статьи встречается патерн \w*стран\w*
+    # print(Entry.objects.filter(body_text__regex=r'\w*стран\w*'))
+
+    # # Вывести записи авторов с почтовыми доменами @gmail.com и @mail.ru
+    # print(Entry.objects.filter(author__email__iregex=r'\w+(@gmail.com|@mail.ru)'))
+
+    # # Если необходимо вывести записи авторов с почтовыми доменами @gmail.com и @mail.ru, но чтобы значения не повторялись, то используем distinct()
+    # print(Entry.objects.filter(author__email__iregex=r'\w+(@gmail.com|@mail.ru)').distinct())
+
+    # all_obj = Blog.objects.all()
+    # print("Вывод всех значений в таблице Blog\n", all_obj)
+    #
+    # all_obj = Blog.objects.first()
+    # print("Вывод первого значения в таблице Blog\n", all_obj)
+
+    # all_obj = Blog.objects.all()
+    # obj_first = all_obj.first()
+    # print("Разные запросы на вывод в Blog\n", f"Первое значение таблицы = {obj_first}\n",
+    #       f"Все значения = {all_obj}")
+
+    # all_obj = Blog.objects.all()
+    # for idx, value in enumerate(all_obj):
+    #     print(f"idx = {idx}, value = {value}")
+    # print(all_obj[0])  # Получение 0-го элемента
+    # print(all_obj[2:4])  # Получение 2 и 3 элемента
+    # print(all_obj.latest("id"))  # Получение последнего элемента
+    # print(Blog.objects.latest("id"))  # Одинаково работает
+
+    # # Пример получения элемента по одному условию
+    # print(Blog.objects.get(id=1))
+    # # Пример получения элемента по двум условиям. Условия работают с оператором И, т.е. выведется строка, только с
+    # # совпадением и первого и второго параметра.
+    # print(Blog.objects.get(id=1, name="Путешествия по миру"))
+    # # Если нет совпадений, то выйдет исключение "db.models.Blog.DoesNotExist: Blog matching query does not exist."
+    # print(Blog.objects.get(id=2, name="Путешествия по миру"))
+
+    # # Вывод всех строк таблицы Blog у которых значение id >= 2.
+    # print(Blog.objects.filter(id__gte=2))
+    #
+    # # Вывод всех строк таблицы Blog кроме тех у которых значение id >= 2.
+    # print(Blog.objects.exclude(id__gte=2))
+
+    # try:
+    #     Blog.objects.get(id=2, name="Путешествия по миру")
+    # except Blog.DoesNotExist:
+    #     print("Не существует")
+    # # Пример для filter
+    # print(Blog.objects.filter(id=2, name="Путешествия по миру").exists())
+
+    # filtered_data = Blog.objects.filter(id__gte=2)
+    # print(filtered_data.order_by("id"))  # упорядочивание по возрастанию по полю id
+    # print(filtered_data.order_by("-id"))  # упорядочивание по уменьшению по полю id
+    # print(filtered_data.order_by("-name", "id"))  # упорядочивание по двум параметрам, сначала по первому на уменьшение,
+    # # затем второе на увеличение. Можно упорядочивание провести по сколь угодно параметрам.
+
+    # Запрос, аннотирующий количество статей для каждого блога,
+    # при этом добавляется новая колонка number_of_entries для вывода
+    entry = Blog.objects.annotate(number_of_entries=Count('entries')).values('name', 'number_of_entries')
+    print(entry)
