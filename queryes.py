@@ -141,3 +141,13 @@ if __name__ == "__main__":
     # при этом добавляется новая колонка number_of_entries для вывода
     entry = Blog.objects.annotate(number_of_entries=Count('entries')).values('name', 'number_of_entries')
     print(entry)
+
+    entry = Entry.objects.annotate(count_entry=Count('author')).values('author', 'count_entry')
+    print(entry)
+
+    count_entry = Entry.objects.aggregate(count_entry=Count('author', distinct=True))
+    print(count_entry)
+    # print(Author.objects.filter(id=count_entry.get('id')))
+
+
+
