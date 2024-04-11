@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap4",
     'apps.db_train_alternative',
     'debug_toolbar',
+    'rest_framework',
 ]
 
 
