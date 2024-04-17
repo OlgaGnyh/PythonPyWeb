@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'apps.db_train_alternative',
     'debug_toolbar',
     'rest_framework',
+    'django_filters',
 ]
 
 
