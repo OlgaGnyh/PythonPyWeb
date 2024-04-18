@@ -14,7 +14,7 @@ import mimetypes
 
 from dotenv import load_dotenv
 
-## load_dotenv()  # здесь загружаются данные из .env и отправляются в переменные окружения
+load_dotenv()  # здесь загружаются данные из .env и отправляются в переменные окружения
 
 mimetypes.add_type("application/javascript", ".js", True)
 
@@ -31,18 +31,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#x%01s7&6@_&duo#swv0u_#lp!&-t*g_-%cm6+$-$k0gze5a=!'
+## SECRET_KEY = 'django-insecure-#x%01s7&6@_&duo#swv0u_#lp!&-t*g_-%cm6+$-$k0gze5a=!'
+##
+## # SECURITY WARNING: don't run with debug turned on in production!
+## DEBUG = True
+##
+## ALLOWED_HOSTS = []
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+DEBUG = os.getenv('DEBUG') == 'true'
 
-##SECRET_KEY = os.getenv('SECRET_KEY')
-
-##DEBUG = os.getenv('DEBUG') == 'true'
-
-##ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS').split(',')]
+ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS').split(',')]
 
 # Application definition
 
@@ -63,9 +63,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'rest_framework',
     'django_filters',
-    # 'rest_framework',
-    # 'rest_framework.authtoken',
-    # 'rest_framework_simplejwt',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
 ]
 
 
@@ -161,10 +160,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/' # Папка в корне проекта, где будут собираться статические файлы
-# if 'localhost' in ALLOWED_HOSTS:
-#    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Папка для локального проекта
-# else:
-#    STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Папка для сервера
+if 'localhost' in ALLOWED_HOSTS:
+   STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Папка для локального проекта
+else:
+   STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Папка для сервера
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Место для хранения (на сервере) статических файлов при выполнении collectstatic
