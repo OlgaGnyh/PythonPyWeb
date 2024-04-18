@@ -22,7 +22,13 @@ from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
+from rest_framework import permissions
+from rest_framework import authentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+
 class AuthorAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
     @csrf_exempt
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
@@ -80,10 +86,35 @@ class AuthorAPIView(APIView):
         author.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+class CustomPermission(permissions.BasePermission):
+    """
+    Пользователи могут выполнять различные действия в зависимости от их роли.
+    """
+
+    def has_permission(self, request, view):
+        # Разрешаем только GET запросы для неаутентифицированных пользователей
+        if request.method == 'GET' and not request.user.is_authenticated:
+            return True
+        # Разрешаем GET и POST запросы для аутентифицированных пользователей
+        if request.method in ['GET', 'POST'] and request.user.is_authenticated:
+            return True
+        # Разрешаем все действия для администраторов
+        if request.user.is_superuser:
+            return True
+        # Во всех остальных случаях возвращаем False
+        return False
+
+
 class AuthorGenericAPIView(GenericAPIView, RetrieveModelMixin, ListModelMixin, CreateModelMixin, UpdateModelMixin,
                            DestroyModelMixin):
     queryset = Author.objects.all()
     serializer_class = AuthorModelSerializer
+    # Переопределяем атрибут permission_classes для указания нашего собственного разрешения
+    permission_classes = [CustomPermission]
+    # permission_classes = [permissions.IsAuthenticated]
+    # authentication_classes = [authentication.TokenAuthentication]
+    # authentication_classes = [JWTAuthentication]
 
     def get(self, request, *args, **kwargs):
         # if kwargs.get(self.lookup_field):  # если был передан id или pk
@@ -112,11 +143,6 @@ class AuthorGenericAPIView(GenericAPIView, RetrieveModelMixin, ListModelMixin, C
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
-
-
-# class AuthorViewSet(ModelViewSet):
-#     queryset = Author.objects.all()
-#     serializer_class = AuthorModelSerializer
 
 
 class AuthorPagination(PageNumberPagination):
