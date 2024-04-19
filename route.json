@@ -1,0 +1,123 @@
+[
+{
+    "model": "route.TypeTrans",
+    "pk": 1,
+    "fields": {
+        "type_trans_shot": "м",
+        "type_trans": "метро",
+        "created_at": "2024-04-16T14:45:35.956Z",
+        "updated_at": "2024-04-16T14:45:35.956Z"
+    }
+},
+{
+    "model": "route.TypeTrans",
+    "pk": 2,
+    "fields": {
+        "type_trans_shot": "а",
+        "type_trans": "автобус",
+        "created_at": "2024-04-16T14:46:35.956Z",
+        "updated_at": "2024-04-16T14:46:35.956Z"
+    }
+},
+{
+    "model": "route.TypeTrans",
+    "pk": 3,
+    "fields": {
+        "type_trans_shot": "тм",
+        "type_trans": "трамвай",
+        "created_at": "2024-04-16T14:47:35.956Z",
+        "updated_at": "2024-04-16T14:47:35.956Z"
+    }
+},
+{
+    "model": "route.TypeTrans",
+    "pk": 4,
+    "fields": {
+        "type_trans_shot": "тл",
+        "type_trans": "троллейбус",
+        "created_at": "2024-04-16T14:48:35.956Z",
+        "updated_at": "2024-04-16T14:48:35.956Z"
+    }
+},
+{
+    "model": "route.TypeVehicle",
+    "pk": 5,
+    "fields": {
+        "type_vehicle_shot": "ом",
+        "type_vehicle": "особо малый класс",
+        "capacity": 13,
+        "created_at": "2024-04-16T14:49:35.956Z",
+        "updated_at": "2024-04-16T14:49:35.956Z"
+    }
+},
+{
+    "model": "route.TypeVehicle",
+    "pk": 4,
+    "fields": {
+        "type_vehicle_shot": "м",
+        "type_vehicle": "малый класс",
+        "capacity": 30,
+        "created_at": "2024-04-16T14:50:35.956Z",
+        "updated_at": "2024-04-16T14:50:35.956Z"
+    }
+},
+{
+    "model": "route.TypeVehicle",
+    "pk": 3,
+    "fields": {
+        "type_vehicle_shot": "с",
+        "type_vehicle": "средний класс",
+        "capacity": 45,
+        "created_at": "2024-04-16T14:51:35.956Z",
+        "updated_at": "2024-04-16T14:51:35.956Z"
+    }
+},
+{
+    "model": "route.TypeVehicle",
+    "pk": 2,
+    "fields": {
+        "type_vehicle_shot": "б",
+        "type_vehicle": "большой класс",
+        "capacity": 75,
+        "created_at": "2024-04-16T14:52:35.956Z",
+        "updated_at": "2024-04-16T14:52:35.956Z"
+    }
+},
+{
+    "model": "route.TypeVehicle",
+    "pk": 1,
+    "fields": {
+        "type_vehicle_shot": "об",
+        "type_vehicle": "особо большой класс",
+        "capacity": 150,
+        "created_at": "2024-04-16T14:53:35.956Z",
+        "updated_at": "2024-04-16T14:53:35.956Z"
+    }
+},
+{
+    "model": "route.Carriers",
+    "pk": 2,
+    "fields": {
+        "name_carrier": "Третий парк",
+        "address": "Санкт-Петербург, ул. Моряков, 11",
+        "name_director": "Иванов Иван Иванович",
+        "phone_number": "+79215489643",
+        "email": "piter@park.com",
+        "created_at": "2024-04-16T14:54:35.956Z",
+        "updated_at": "2024-04-16T14:54:35.956Z"
+    }
+},
+{
+    "model": "route.Carriers",
+    "pk": 1,
+    "fields": {
+        "name_carrier": "Пальмира",
+        "address": "Санкт-Петербург, ул. Руставели, 81",
+        "name_director": "Петров Роман Петрович",
+        "phone_number": "+79215564671",
+        "email": "petrov@mail.com",
+        "created_at": "2024-04-16T14:55:35.956Z",
+        "updated_at": "2024-04-16T14:55:35.956Z"
+    }
+}
+]

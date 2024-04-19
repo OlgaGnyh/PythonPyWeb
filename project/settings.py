@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    'apps.route'
 ]
 
 
@@ -165,8 +166,7 @@ if 'localhost' in ALLOWED_HOSTS:
 else:
    STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Папка для сервера
 
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Место для хранения (на сервере) статических файлов при выполнении collectstatic
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Место для хранения (на сервере) статических файлов при выполнении collectstatic
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Место для хранения (на сервере) медиафайлов

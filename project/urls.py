@@ -25,7 +25,8 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('api/', include('apps.api.urls')),
     path('api_alter/', include('apps.db_train_alternative.urls')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('route/', include('apps.route.urls'))
 ]
 
 if settings.DEBUG:
