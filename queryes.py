@@ -8,8 +8,10 @@ django.setup()
 
 if __name__ == "__main__":
     from apps.db_train_alternative.models import Blog, Author, AuthorProfile, Entry, Tag
+    from apps.db_train.models import Author, AuthorProfile, Entry, Tag
     import datetime
     # TODO Сделайте здесь запросы
+
 
     # obj = Entry.objects.filter(author__name__contains='thinker')
     # print(obj)
@@ -142,6 +144,11 @@ if __name__ == "__main__":
     entry = Blog.objects.annotate(number_of_entries=Count('entries')).values('name', 'number_of_entries')
     print(entry)
 
+    asd = Entry.objects.annotate(count_entry=Count('author', distinct=True)).values('author', 'count_entry')
+    # asd2 = []
+    # for i in asd:
+    #     asd2.append(f'Автор: {asd[i].get('author')}; Число статей: {asd[i].get('count_entry')}')
+    print(asd)
 
 
 

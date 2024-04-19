@@ -33,7 +33,10 @@ class TrainView(View):
 
         # TODO Какой автор имеет наибольший возраст?
         max_age = Author.objects.aggregate(max_age=Max('age'))
-        self.answer7 = Author.objects.filter(age=max_age['max_age'])
+        author_max_age = Author.objects.filter(age=max_age['max_age'])
+        # self.answer7 = author_max_age
+        # self.answer7 = max_age.get('max_age')
+        self.answer7 = f'{author_max_age}, {max_age.get('max_age')}'
 
         # TODO Сколько авторов указали свой номер телефона?
         self.answer8 = Author.objects.filter(phone_number__isnull=False).count()
@@ -42,7 +45,11 @@ class TrainView(View):
         self.answer9 = Author.objects.filter(age__lt=25)
 
         # TODO Сколько статей написано каждым автором?
-
+        # asd = Entry.objects.annotate(count_entry=Count('author', distinct=True)).values('author','count_entry')
+        # asd2 = []
+        # for i in asd:
+        #     asd2.append(f'Автор: {asd[i].get('author')}; Число статей: {asd[i].get('count_entry')}')
+        # self.answer10 = asd
         self.answer10 = Entry.objects.annotate(count_entry=Count('author', distinct=True)).values('author', 'count_entry')
 
         context = {f'answer{index}': self.__dict__[f'answer{index}'] for index in range(1, 11)}
