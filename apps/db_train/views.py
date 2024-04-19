@@ -35,8 +35,8 @@ class TrainView(View):
         max_age = Author.objects.aggregate(max_age=Max('age'))
         author_max_age = Author.objects.filter(age=max_age['max_age'])
         # self.answer7 = author_max_age
-        # self.answer7 = max_age.get('max_age')
-        self.answer7 = f'{author_max_age}, {max_age.get('max_age')}'
+        self.answer7 = max_age.get('max_age')
+        # self.answer7 = f'{author_max_age}, {max_age.get('max_age')}'
 
         # TODO Сколько авторов указали свой номер телефона?
         self.answer8 = Author.objects.filter(phone_number__isnull=False).count()
